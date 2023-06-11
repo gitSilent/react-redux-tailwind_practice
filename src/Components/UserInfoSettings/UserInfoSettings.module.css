@@ -1,0 +1,22 @@
+.userInfoSettings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.userInfoSettings input{
+    width: 250px;
+}
+.userInfoSettings__mainBtn{
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 15px;
+    background-color: #a460e8;
+}
+.userInfoSettings__mainBtn:hover{
+    cursor: pointer;
+    background-color: #824abb;
+}

@@ -1,0 +1,26 @@
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.userInfo__userImg{
+    width: 100px;
+    border-radius: 5px;
+}
+.userInfo__settingsBtn, .userInfo__getNewBtn{
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 15px;
+    background-color: #a460e8;
+}
+.userInfo__settingsBtn:hover, .userInfo__getNewBtn:hover{
+    cursor: pointer;
+    background-color: #824abb;
+}
+.userInfo__getNewBtn{
+    font-size: 15px;
+}
