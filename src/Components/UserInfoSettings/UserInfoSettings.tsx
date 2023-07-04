@@ -3,15 +3,26 @@ import styles from './UserInfoSettings.module.css'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../../features/userInfoData/userInfoSlice';
+import { ChangeEvent } from 'react';
+import { IInfo,IState} from '../../interfaces/IUser';
+
 
 export default function UserInfoSettings() {
-const [localUserInfo, setLocalUserInfo] = useState({})
-const userInfo = useSelector((state) => state.userInfo.info)
+
+const [localUserInfo, setLocalUserInfo] = useState<IInfo>({
+    firstName:"",
+    lastName:"",
+    age:"",
+    country:"",
+    city:"",
+    img:""
+})
+const userInfo = useSelector((state:IState) => state.userInfo.info)
 const dispatch = useDispatch();
 
 const navigate = useNavigate();
 
-const handleInputChange = (event) =>{
+const handleInputChange = (event: ChangeEvent<HTMLInputElement>) =>{
     console.log(event.target);
     const {name,value} = event.target;
 

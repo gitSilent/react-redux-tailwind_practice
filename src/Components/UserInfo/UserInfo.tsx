@@ -4,15 +4,21 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../features/userInfoData/userInfoSlice'
 import { useNavigate } from 'react-router-dom'
+import { IInfo,IState} from '../../interfaces/IUser';
+
 
 export default function UserInfo() {
   // const [userInfo, setUserInfo] = useState({})
-  const userInfo = useSelector((state) => state.userInfo.info)
+  const userInfo = useSelector((state:IState) => state.userInfo.info)
   const dispatch = useDispatch();
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(false)
+
   const fetchData = () => {
+    setLoading(true)
+
     axios.get("https://randomuser.me/api/")
     .then((response)=>{
       console.log(response.data.results[0]);
@@ -26,6 +32,7 @@ export default function UserInfo() {
         img:info?.picture?.large
     }
       dispatch(setUserInfo(newState))
+      setLoading(false)
     })
     .catch((error)=>{
       console.log(error);
@@ -47,12 +54,19 @@ export default function UserInfo() {
   return (
     <div className={styles.userInfo}>
       <h1>ABOUT USER</h1>
-      <span><b>Full Name:</b> {userInfo?.firstName} {userInfo?.lastName}</span>
-      <span><b>Age:</b> {userInfo?.age}</span>
-      <span><b>Location:</b> {userInfo?.country}, {userInfo?.city}</span>
-      <img src={userInfo?.img} alt="User" className={styles.userInfo__userImg}/>
-      <button className={styles.userInfo__getNewBtn} onClick={()=>{fetchData()}}>GET NEW USER</button>
-      <button className={styles.userInfo__settingsBtn} onClick={()=>{navigate('/settings')}}>Change Info</button>
+
+      {!loading
+      ? <>
+        <span><b>Full Name:</b> {userInfo?.firstName} {userInfo?.lastName}</span>
+        <span><b>Age:</b> {userInfo?.age}</span>
+        <span><b>Location:</b> {userInfo?.country}, {userInfo?.city}</span>
+        <img src={userInfo?.img} alt="User" className={styles.userInfo__userImg}/>
+        <button className={styles.userInfo__getNewBtn} onClick={()=>{fetchData()}}>GET NEW USER</button>
+        <button className={styles.userInfo__settingsBtn} onClick={()=>{navigate('/settings')}}>Change Info</button>
+      </> 
+      : <p>Loading...</p>
+
+      }
     </div>
       
   )
